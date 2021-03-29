@@ -1,3 +1,19 @@
+KLAB_OUT=out
+export KLAB_OUT
+
+PATH := $(CURDIR)/deps/klab/bin:$(PATH)
+export PATH
+
+KLAB_EVMS_PATH=$(CURDIR)/deps/evm-semantics
+export KLAB_EVMS_PATH
+
+DAPP_DIR=$(CURDIR)/dapp
+
+include.mak: src/specs.md
+	klab make > include.mak
+
+include include.mak
+
 .PHONY: dapp kevm klab
 
 deps: dapp kevm klab
@@ -16,3 +32,20 @@ klab:
 	git submodule update --init --recursive -- deps/klab
 	cd deps/klab/                   \
 		&& npm install
+
+specs/%.k: $(KLAB_OUT)/built/%
+	cp $(KLAB_OUT)/specs/$$($(HASH) $*).k $@
+
+specs/%.gas: $(KLAB_OUT)/gas/%.raw
+	cp $< $@
+
+gen-spec: $(patsubst %, specs/%.k, $(all_specs))
+gen-gas:  $(patsubst %, specs/%.gas, $(pass_rough_specs))
+
+dapp-clean:
+	cd $(DAPP_DIR) && dapp clean && cd ../
+
+clean: dapp-clean out-clean
+
+out-clean:
+	rm -rf $(KLAB_OUT)
