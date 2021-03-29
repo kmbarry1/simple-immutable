@@ -1,5 +1,7 @@
 .PHONY: dapp kevm klab
 
+deps: dapp kevm klab
+
 dapp:
 	git submodule update --init --recursive -- dapp
 	cd ./dapp && dapp --use solc:0.6.12 build && cd ../
@@ -13,5 +15,4 @@ kevm:
 klab:
 	git submodule update --init --recursive -- deps/klab
 	cd deps/klab/                   \
-		&& npm install              \
-		&& touch makefile.timestamp
+		&& npm install
