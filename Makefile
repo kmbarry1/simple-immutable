@@ -1,4 +1,4 @@
-.PHONY: dapp kevm
+.PHONY: dapp kevm klab
 
 dapp:
 	git submodule update --init --recursive -- dapp
@@ -9,3 +9,9 @@ kevm:
 	cd deps/evm-semantics/                               \
 		&& make deps RELEASE=true SKIP_HASKELL=true      \
 		&& make build-java build-lemmas RELEASE=true -j4
+
+klab:
+	git submodule update --init --recursive -- deps/klab
+	cd deps/klab/                   \
+		&& npm install              \
+		&& touch makefile.timestamp
