@@ -9,12 +9,14 @@ export KLAB_EVMS_PATH
 
 DAPP_DIR=$(CURDIR)/dapp
 
+.PHONY: all dapp kevm klab spec gen-spec gen-gas clean
+
+all: deps include.mak
+
 include.mak: src/specs.md
 	klab make > include.mak
 
 include include.mak
-
-.PHONY: dapp kevm klab
 
 deps: dapp kevm klab
 
