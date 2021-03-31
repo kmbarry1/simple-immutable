@@ -6,8 +6,10 @@
         "lemmas": "src/verification.k",
         "rules": [ ],
         "requires": [
+            "lemmas/mcd/verification.k"
         ],
         "imports": [
+            "VERIFICATION"
         ],
         "concrete-rules": [
             "EDSL.#ceil32",
