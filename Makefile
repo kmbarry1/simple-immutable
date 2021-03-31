@@ -9,9 +9,11 @@ export KLAB_EVMS_PATH
 
 DAPP_DIR=$(CURDIR)/dapp
 
-.PHONY: all dapp kevm klab spec gen-spec gen-gas clean
+.PHONY: all dapp kevm klab spec gen-spec gen-gas clean dapp-clean out-clean
 
-all: deps include.mak
+all: deps
+	rm ./include.mak
+	klab make > include.mak
 
 include.mak: src/specs.md
 	klab make > include.mak
@@ -44,10 +46,12 @@ specs/%.gas: $(KLAB_OUT)/gas/%.raw
 gen-spec: $(patsubst %, specs/%.k, $(all_specs))
 gen-gas:  $(patsubst %, specs/%.gas, $(pass_rough_specs))
 
+clean: dapp-clean out-clean
+	rm ./include.mak
+	touch include.mak
+
 dapp-clean:
 	cd $(DAPP_DIR) && dapp clean && cd ../
-
-clean: dapp-clean out-clean
 
 out-clean:
 	rm -rf $(KLAB_OUT)
