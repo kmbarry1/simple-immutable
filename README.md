@@ -9,3 +9,13 @@ make kevm -j3
 rm include.mak
 make include.mak
 ```
+
+Prove everything:
+```
+make prove -j4
+```
+
+Prove just one thing:
+```
+make out/accept/Simple_foo_pass_rough
+```
