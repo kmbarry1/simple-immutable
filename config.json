@@ -1,6 +1,6 @@
 {
     "name": "simple-immutable",
-    "url": "https://github.com/makerdao/k-dss/",
+    "url": "https://github.com/kmbarry1/simple-immutable/",
     "src": {
         "specification": "./src/specs.md",
         "lemmas": "src/verification.k",
