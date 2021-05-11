@@ -15,7 +15,8 @@ all: deps
 	rm ./include.mak
 	klab make > include.mak
 
-include.mak: src/specs.md
+include.mak: src/specs.md config.json
+	rm -rf out/
 	klab make > include.mak
 
 include include.mak
